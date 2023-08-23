@@ -13,8 +13,7 @@ const vuetify = createVuetify({
   directives,
 })
 
-import {store, key } from './store';
-import router from './router';
+import { store, key, router } from './app/providers';
 
 const app = createApp(App);
 

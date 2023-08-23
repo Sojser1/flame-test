@@ -1,11 +1,7 @@
 <script setup lang="ts">
-import NavigationBar from './components/NavigationBar.vue';
+import { Routing } from './pages';
 </script>
 
 <template>
-  <NavigationBar />
-  <RouterView />
+    <Routing />
 </template>
-
-<style scoped>
-</style>
