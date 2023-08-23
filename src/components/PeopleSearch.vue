@@ -14,7 +14,7 @@ const store = useStore();
 let items = ref([] as PeopleItem[]);
 let filter = ref('');
 let isLoading = ref(false);
-let activeInput = ref(false);
+let isFocusInput = ref(false);
 
 const searchPeople = async (): Promise<void> => {
     isLoading.value = true;
@@ -24,7 +24,7 @@ const searchPeople = async (): Promise<void> => {
 }
 
 const debouncedSearchPeople = debounce(searchPeople, 300);
-const dropdownVisible = debounce(() => activeInput.value = false, 300);
+const hideDropdown = debounce(() => isFocusInput.value = false, 300);
 
 const router = useRouter();
 
@@ -44,8 +44,8 @@ const resetInputData = (): void => {
 </script>
 <template>
     <div class="people-search">
-        <input class="input" @focus="activeInput = true" @blur="dropdownVisible" v-model="filter" @input="() => debouncedSearchPeople()" type="text"/>
-        <div v-if="activeInput" class="dropdown">
+        <input class="input" @focus="isFocusInput = true" @blur="() => hideDropdown()" v-model="filter" @input="() => debouncedSearchPeople()" type="text"/>
+        <div v-if="isFocusInput" class="dropdown">
             <app-loader v-if="isLoading"/>
             <p v-else class="dropdown-item" @click="() => goToPeopleCard(item.url)" v-for="item in items">{{  item.name }}</p>
         </div>
