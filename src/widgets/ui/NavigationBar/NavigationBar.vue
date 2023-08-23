@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import PeopleSearch from '../PeopleSearch/PeopleSearch.vue';
+import { PeopleSearch } from '../../../features';
 
 </script>
 <template>
