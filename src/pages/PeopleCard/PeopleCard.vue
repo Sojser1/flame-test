@@ -7,6 +7,7 @@ import { useStore } from '../../app/providers';
 
 const route = useRoute();
 const store = useStore();
+
 const people = ref<PeopleItem | null>(null)
 let isLoading = ref(false);
 
@@ -85,4 +86,4 @@ initPeople(route.params.id as string);
 .people-info {
     width: 100%;
 }
-</style>../shared/api/interfaces../shared/store../shared/lib/hooks/useLocalStorage
+</style>

@@ -27,4 +27,4 @@ const hasPreviousPage = computed(() => store.state.page > 1);
     width: 100%;
     gap: 20px;
 }
-</style>../shared/store
+</style>

@@ -105,4 +105,4 @@ const resetInputData = (): void => {
         
     }
 } 
-</style>../shared/api/interfaces../shared/store
+</style>

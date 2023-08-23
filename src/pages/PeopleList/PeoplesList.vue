@@ -9,19 +9,19 @@ let isLoading = ref(false);
 
 const peoples = computed(() => store.state.peopleList);
 
-const initPeople = async () => {
+const getPeople = async () => {
   isLoading.value = true;
   await store.dispatch('getPeoples');
   isLoading.value = false;
 }
 
-initPeople();
-
 const changeFavoriteStatus = (item: PeopleItem) => {
   store.dispatch('changeFavoriteStatus', item)
 }
 
-watch(() => store.state.page, initPeople);
+watch(() => store.state.page, () => getPeople());
+
+getPeople();
 
 </script>
 <template>
@@ -64,7 +64,7 @@ watch(() => store.state.page, initPeople);
         </td>
       </tr>
     </tbody>
-    <app-pagination />
+    <app-pagination class="pagination" />
   </v-table>
   </div>
 </template>
@@ -95,4 +95,8 @@ watch(() => store.state.page, initPeople);
   border: 1px solid black;
   border-radius: 5px
 }
-</style>../shared/api/interfaces../shared/store
+
+.pagination {
+  margin-top: 10px;
+}
+</style>
