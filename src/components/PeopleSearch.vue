@@ -1,11 +1,13 @@
 <script setup lang="ts">
-import axiosClient from '../api/';
 import { ref } from 'vue';
+import debounce  from 'lodash/debounce';
+
 import { PeopleItem } from '../api/interfaces';
-import AppLoader from './AppLoader.vue';
 import { useRouter } from 'vue-router';
 import { useStore } from '../store';
-import debounce  from 'lodash/debounce';
+
+import AppLoader from './AppLoader.vue';
+
 
 const store = useStore();
 

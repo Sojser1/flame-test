@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import PeopleSearch from './PeopleSearch.vue';
+
 </script>
 <template>
     <ul class="navbar">

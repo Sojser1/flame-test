@@ -5,6 +5,7 @@ import { InjectionKey } from 'vue';
 import { createStore, useStore as baseUseStore, Store } from 'vuex';
 
 import useLocalStorage from '../lib/hooks/useLocalStorage';
+import { isFavoriteItem } from '../lib/tools/response-process';
 
 interface PeoplesStoreState {
     peopleList: PeopleItem[],
@@ -31,10 +32,8 @@ export const store = createStore<PeoplesStoreState>({
     },
     actions: {
         async getPeoples({ state }) {
-            //TODO: refactor
             const {results, count } = await axiosService.getPeoples(state.page);
-            const { getItems } = useLocalStorage<PeopleItem>('favorite_list');
-            state.peopleList = results.map((people: PeopleItem) => ({...people, isFavorite: getItems().filter(item => item.url === people.url).length > 0}))
+            state.peopleList = results.map((people: PeopleItem) => ({...people, isFavorite: isFavoriteItem(people)}))
             state.count = count;
         },
         changeFavoriteStatus({ state, commit }, item: PeopleItem) {
@@ -44,9 +43,7 @@ export const store = createStore<PeoplesStoreState>({
         },
         async getPeople(_, id: string): Promise<PeopleItem> {
             return axiosService.getPeople(id).then(response => {
-                //TODO: lib fn
-                const { getItems } = useLocalStorage<PeopleItem>('favorite_list');
-                response.isFavorite = getItems().filter(item => item.url === response.url).length > 0;
+                response.isFavorite = isFavoriteItem(response);
                 return response;
             })
         },

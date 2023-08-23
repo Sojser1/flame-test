@@ -1,8 +1,11 @@
 <script setup lang="ts">
-import AppLoader from '../components/AppLoader.vue';
 import { computed, ref } from 'vue';
 import { useStore } from '../store';
 import { PeopleItem } from '../api/interfaces';
+
+import AppButton from '../components/AppButton.vue';
+import AppLoader from '../components/AppLoader.vue';
+
 
 const store = useStore();
 let isLoading = ref(false);
@@ -60,7 +63,7 @@ const changeFavoriteStatus = (item: PeopleItem) => {
         <td>{{ item.mass }}</td>
         <td>{{ item.hair_color }}</td>
         <td>
-          <button @click.stop="() => changeFavoriteStatus(item)" class="favorite-button">{{  item.isFavorite }}</button>
+          <app-button @click.stop="() => changeFavoriteStatus(item)" class="favorite-button">{{  item.isFavorite ? 'Удалить из избранного' : 'Добавить в избранное' }}</app-button>
         </td>
       </tr>
     </tbody>
