@@ -29,6 +29,12 @@ export const store = createStore<PeoplesStoreState>({
             const favoritePeople = state.peopleList.filter((people: PeopleItem) => people.isFavorite);
             setItems(favoritePeople)
         },
+        incrementPage(state) {
+            state.page += 1;
+        },
+        decrementPage(state) {
+            state.page -= 1;
+        }
     },
     actions: {
         async getPeoples({ state }) {

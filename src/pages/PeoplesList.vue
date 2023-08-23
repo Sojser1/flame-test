@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { useStore } from '../store';
 import { PeopleItem } from '../api/interfaces';
 
 import AppButton from '../components/AppButton.vue';
 import AppLoader from '../components/AppLoader.vue';
-
+import AppPagination from '../components/AppPagination.vue'
 
 const store = useStore();
 let isLoading = ref(false);
@@ -13,8 +13,6 @@ let isLoading = ref(false);
 const peoples = computed(() => store.state.peopleList);
 
 const initPeople = async () => {
-  if (peoples.value.length > 0) return;
-
   isLoading.value = true;
   await store.dispatch('getPeoples');
   isLoading.value = false;
@@ -25,6 +23,8 @@ initPeople();
 const changeFavoriteStatus = (item: PeopleItem) => {
   store.dispatch('changeFavoriteStatus', item)
 }
+
+watch(() => store.state.page, initPeople);
 
 </script>
 <template>
@@ -67,6 +67,7 @@ const changeFavoriteStatus = (item: PeopleItem) => {
         </td>
       </tr>
     </tbody>
+    <app-pagination />
   </v-table>
   </div>
 </template>
@@ -77,6 +78,7 @@ const changeFavoriteStatus = (item: PeopleItem) => {
   min-height: 100%;
   height: auto;
   position: relative;
+  padding: 12px 16px;
 }
 
 .loader {
